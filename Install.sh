@@ -91,9 +91,9 @@ case $ID in
         cd $HOME
         ;;
     2)
-        echo "安装Python"
+        echo "安装Python/node/uv"
         apt update -y
-        apt install python nodejs -y
+        apt install python nodejs uv -y
         npm install pm2 -g
         pip config set global.index-url https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple
         echo "拉取源码"
