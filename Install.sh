@@ -194,6 +194,7 @@ case $ID in
     11)
         rm -rf $HOME/Salias/SillyTavern/public/scripts/extensions/third-party/*
         echo "已清除所有插件"
+        ;;
     *)
         echo "未知选项"
         ;;
