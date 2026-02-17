@@ -1,5 +1,5 @@
 # Salias
-A easily installation script for SillyTavern
+A easy installation script for SillyTavern
 
 ---
 
