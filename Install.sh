@@ -41,8 +41,9 @@ MENU="1) 搭建SillyTavern(Github-国外源)
 8) 卸载GCLI2API
 9) 编辑SillyTavern配置文件
 10) 设置Git代理端口为7890
-11) 简易插件目录管理器
-12) 清除SillyTavern第三方插件目录
+11) 取消设置Git代理端口为7890
+12) 简易插件目录管理器
+13) 清除SillyTavern第三方插件目录
 "
 
 # 2. 调用 fzf
@@ -193,6 +194,12 @@ case $ID in
         cd $HOME
         ;;
     11)
+        git config --global --unset http.proxy http://127.0.0.1:7890
+        git config --global --unset https.proxy http://127.0.0.1:7890
+        echo "去除原本代理端口"
+        cd $HOME
+        ;;
+    12)
         BASE_DIR="$HOME/Salias/SillyTavern/public/scripts/extensions/third-party/"
         cd "$BASE_DIR" || exit
         SELECTED_DIR=$(find . -maxdepth 1 -mindepth 1 -type d | sed 's|^\./||' | fzf \
@@ -223,12 +230,15 @@ case $ID in
         else
             echo "操作已取消。"
         fi
+        cd $HOME
         ;;
-    12)
+    13)
         rm -rf $HOME/Salias/SillyTavern/public/scripts/extensions/third-party/*
         echo "已清除所有插件"
+        cd $HOME
         ;;
     *)
         echo "未知选项"
+        cd $HOME
         ;;
 esac
