@@ -3,7 +3,7 @@ A easy installation script for SillyTavern
 
 ---
 
-一个简单易用的SillyTavern安装脚本
+一个简单易用的SillyTavern安装脚本，现已支持国内无魔法快速部署
 
 ## 安装
 
@@ -15,6 +15,8 @@ curl -O https://raw.githubusercontent.com/LimeBlogs/Salias/refs/heads/main/Insta
 该脚本会自动切换软件源，以便国内用户使用。
 
 ## 额外说明
+本脚本已更新国内源，支持**更方便**，**无魔法**更新或部署SillyTavern
+
 对于脚本的"9选项"，你需要保证你使用的代理软件是Clash，并且正确设置端口后才能使用
 
 非Clash直接使用可能会导致问题
@@ -26,4 +28,4 @@ curl -O https://raw.githubusercontent.com/LimeBlogs/Salias/refs/heads/main/Insta
 
 如果它能够帮助你，欢迎捐赠我，为我买一杯咖啡！谢谢喵(虽然不捐也没事的说
 
-![Buy me a coffee](https://raw.githubusercontent.com/LimeBlogs/Salias/refs/heads/main/Buymeacoffee.png)
+![Buy me a coffee](https://sudachi.top/about/)
