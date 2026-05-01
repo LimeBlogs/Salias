@@ -31,17 +31,18 @@ if [ -f "$HOME/Salias/main.sh" ]; then
     bash $HOME/Salias/main.sh
 fi
 
-MENU="1) 搭建SillyTavern(全新部署)
-2) 搭建GCLI2API(全新部署)
-3) 更新SillyTavern
-4) 更新GCLI2API
-5) 清除一切
-6) 卸载SillyTavern
-7) 卸载GCLI2API
-8) 编辑SillyTavern配置文件
-9) 设置Git代理端口为7890
-10) 简易插件目录管理器
-11) 清除SillyTavern第三方插件目录
+MENU="1) 搭建SillyTavern(Github-国外源)
+2) 搭建SillyTavern(Gitee-国内源)
+3) 搭建GCLI2API(全新部署)
+4) 更新SillyTavern
+5) 更新GCLI2API
+6) 清除一切
+7) 卸载SillyTavern
+8) 卸载GCLI2API
+9) 编辑SillyTavern配置文件
+10) 设置Git代理端口为7890
+11) 简易插件目录管理器
+12) 清除SillyTavern第三方插件目录
 "
 
 # 2. 调用 fzf
@@ -94,6 +95,38 @@ case $ID in
         cd $HOME
         ;;
     2)
+        # 不用动—————————————————————————————
+        echo "正在换源"
+        sed -i 's@^\(deb.*stable main\)$@#\1\ndeb https://mirrors.aliyun.com/termux/termux-packages-24 stable main@' $PREFIX/etc/apt/sources.list
+        echo "已换源"
+        echo "更新本地apt索引与本地软件包"
+        apt update -y
+        apt-get -y upgrade
+        apt update -y
+        echo "基础项配置完毕"
+        apt install vim git nodejs -y
+        # 不用动—————————————————————————————
+        rm -rf $HOME/Salias/SillyTavern
+        cd $HOME/Salias
+        echo "拉取ST源码"
+        git clone https://gitee.com/mirrors/sillytavern.git
+        echo "拉取完毕"
+        mv $HOME/Salias/sillytavern $HOME/Salias/SillyTavern
+        echo "已重命名"
+        npm config set registry https://registry.npmmirror.com
+        cd $HOME/Salias/SillyTavern
+        echo "安装nodejs依赖"
+        npm install
+        cd $HOME
+        echo "写入别名"
+        ST_ALIAS="alias 9g='cd $HOME/Salias/SillyTavern && ./start.sh'"
+        echo "$ST_ALIAS" >> "$CONFIG_FILE"
+        echo "请重启终端"
+        echo "你现在可以通过9g来快速启动酒馆"
+        echo "此外，也可以通过salias来快速启动管理面板"
+        cd $HOME
+        ;;
+    3)
         echo "安装Python"
         apt update -y
         apt install python -y
@@ -111,7 +144,7 @@ case $ID in
         echo "你现在可以通过gcli来快速启动GCLI2API"
         cd $HOME
         ;;
-    3)
+    4)
         # 检测流
         if [ ! -d "$HOME/Salias/SillyTavern" ]; then
           echo "你可能未安装SillyTavern"
@@ -123,7 +156,7 @@ case $ID in
         fi
         cd $HOME
         ;;
-    4)
+    5)
         if [ ! -d "$HOME/Salias/gcli2api" ]; then
           echo "你可能未安装gcli2api"
           bash $HOME/Salias/main.sh
@@ -134,32 +167,32 @@ case $ID in
         fi
         cd $HOME
         ;;
-    5)
+    6)
         rm -rf $HOME/Salias
         echo "已清除所有项目，但是所安装过的软件包不会去除！"
         cd $HOME
         ;;
-    6)
+    7)
         rm -rf $HOME/Salias/SillyTavern
         echo "已删除酒馆及其数据"
         cd $HOME
         ;;
-    7)
+    8)
         rm -rf $HOME/Salias/gcli2api
         echo "已删除gcli2api及其数据"
         cd $HOME
         ;;
-    8)
+    9)
         vim $HOME/Salias/SillyTavern/config.yaml
         cd $HOME
         ;;
-    9)
+    10)
         git config --global http.proxy http://127.0.0.1:7890
         git config --global https.proxy http://127.0.0.1:7890
         echo "已设置代理为127.0.0.1:7890"
         cd $HOME
         ;;
-    10)
+    11)
         BASE_DIR="$HOME/Salias/SillyTavern/public/scripts/extensions/third-party/"
         cd "$BASE_DIR" || exit
         SELECTED_DIR=$(find . -maxdepth 1 -mindepth 1 -type d | sed 's|^\./||' | fzf \
@@ -191,7 +224,7 @@ case $ID in
             echo "操作已取消。"
         fi
         ;;
-    11)
+    12)
         rm -rf $HOME/Salias/SillyTavern/public/scripts/extensions/third-party/*
         echo "已清除所有插件"
         ;;
