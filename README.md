@@ -28,4 +28,4 @@ curl -O https://raw.githubusercontent.com/LimeBlogs/Salias/refs/heads/main/Insta
 
 如果它能够帮助你，欢迎捐赠我，为我买一杯咖啡！谢谢喵(虽然不捐也没事的说
 
-![Buy me a coffee](https://sudachi.top/about/)
+[Buy me a coffee](https://sudachi.top/about/)
